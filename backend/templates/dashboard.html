@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart City Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>🏙 Smart City Control Center</h1>
+
+<div class="card">
+    <h2>🚦 Traffic</h2>
+    <p id="traffic">Loading...</p>
+</div>
+
+<div class="card">
+    <h2>⚡ Energy</h2>
+    <p id="energy">Loading...</p>
+</div>
+
+<div class="card">
+    <h2>🗑 Waste</h2>
+    <p id="waste">Loading...</p>
+</div>
+
+<script>
+fetch("/traffic")
+.then(res => res.json())
+.then(data => {
+    document.getElementById("traffic").innerText =
+        data.status + " (Congestion: " + data.congestion + ")";
+});
+
+fetch("/energy")
+.then(res => res.json())
+.then(data => {
+    document.getElementById("energy").innerText =
+        data.status + " | Usage: " + data.power;
+});
+
+fetch("/waste")
+.then(res => res.json())
+.then(data => {
+    document.getElementById("waste").innerText =
+        data.collection + " (Zone " + data.zone + ")";
+});
+</script>
+
+</body>
+</html>
